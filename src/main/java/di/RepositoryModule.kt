@@ -1,5 +1,6 @@
 package di
 
+import com.mongodb.client.MongoDatabase
 import dagger.Module
 import dagger.Provides
 import org.codehaus.jackson.map.ObjectMapper
@@ -10,8 +11,8 @@ import javax.inject.Named
 class RepositoryModule {
     @Provides
     @Named("managerRepository")
-    fun provideUserManagerRepositoryObj(@Named("mapper") mapper: ObjectMapper): UserManagerRepository
+    fun provideUserManagerRepositoryObj(@Named("mapper") mapper: ObjectMapper,@Named("mongoDatabase") mongoDatabase: MongoDatabase): UserManagerRepository
     {
-        return UserManagerRepository(mapper)
+        return UserManagerRepository(mongoDatabase,mapper)
     }
 }

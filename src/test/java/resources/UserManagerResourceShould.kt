@@ -39,15 +39,13 @@ class UserManagerResourceShould: JerseyTest() {
         assert(responce.status==200)
     }
 
-    @Test
-    fun return_200_after_createNewUserManager()
-    {
-        var data=testDataSource.getNewUserRecord()
-//        post(Entity.entity(assignRequest, MediaType.APPLICATION_JSON))
-        var responce=target(baseUrl).request().post(Entity.entity(data,MediaType.APPLICATION_JSON))
-        println("data=:"+responce)
-    }
-
+//    @Test
+//    fun return_200_after_createNewUserManager()
+//    {
+//        var data=testDataSource.getNewUserRecord()
+//        var responce=target(baseUrl).request().post(Entity.entity(data,MediaType.APPLICATION_JSON))
+//        assert(responce.status==200)
+//    }
     @Test
     fun return_200_after_get_data_by_uuid()
     {

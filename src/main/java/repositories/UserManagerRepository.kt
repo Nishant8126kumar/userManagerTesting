@@ -12,13 +12,9 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
-class UserManagerRepository @Inject constructor(@Named("mapper") private  val mapper: ObjectMapper) {
+class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private val mongoDatabase: MongoDatabase,@Named("mapper") private  val mapper: ObjectMapper) {
 
 
-
-    private val mongoClient=MongoClient("localhost",27017)
-    private var mongoDatabase: MongoDatabase=mongoClient.getDatabase("EmployeeDetails")
-//    var mapper=ObjectMapper()
     fun getAllUserManagerRecord():List<UserManagerModel>
     {
         var recod= mutableListOf<UserManagerModel>()

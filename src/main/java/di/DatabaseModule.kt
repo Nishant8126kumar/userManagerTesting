@@ -1,6 +1,7 @@
 package di
 
 import com.mongodb.MongoClient
+import com.mongodb.client.MongoDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -9,10 +10,16 @@ import javax.inject.Named
 class DatabaseModule {
 
     @Provides
-    @Named("databaseConnection")
-    fun provideDatabase():MongoClient
+    @Named("databaseClient")
+    fun provideClient():MongoClient
     {
         return MongoClient("localhost",27017)
+    }
+    @Provides
+    @Named("mongoDatabase")
+    fun provideMongoDatabse(@Named("databaseClient") mongoClient: MongoClient):MongoDatabase
+    {
+        return mongoClient.getDatabase("EmployeeDetails")
     }
 
 }
