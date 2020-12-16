@@ -1,0 +1,41 @@
+{
+    "name":"UserManagerModel",
+    "namespace":"repositories",
+    "type":"record",
+    "fields":
+    [
+    {
+    "name":"userName",
+    "type":"string"
+    },
+    {
+    "name":"userEmail",
+    "type":"string"
+    },
+    {
+    "name":"userContact",
+    "type":"string"
+    },
+    {
+    "name":"uuid",
+    "type":"string"
+    },
+    {
+    "name":"address",
+    "type":["null","string"],
+    "default":null
+    },
+    {
+    "name":"landMark",
+    "type":["null","string"],
+    "default":null
+    },
+    {
+    "name":"secondContact",
+    "type":["null","string"],
+    "default": null
+    }
+    ]
+}
+
+
