@@ -1,6 +1,5 @@
 package resources
 
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
 import helper.TestDataSource
 import org.codehaus.jackson.map.ObjectMapper
@@ -9,9 +8,7 @@ import org.glassfish.jersey.test.JerseyTest
 import org.junit.Test
 import org.mockito.Mockito
 import services.UserManagerService
-import javax.ws.rs.client.Entity
 import javax.ws.rs.core.Application
-import javax.ws.rs.core.MediaType
 
 class UserManagerResourceShould: JerseyTest() {
 
@@ -35,7 +32,8 @@ class UserManagerResourceShould: JerseyTest() {
 
         whenever(userManagerService.getData()).thenReturn(testDataSource.getDevice())
         var responce = target("$baseUrl").request().get()
-        println("data=:$responce")
+        var data=responce.readEntity(String::class.java)
+
         assert(responce.status==200)
     }
 
@@ -49,7 +47,7 @@ class UserManagerResourceShould: JerseyTest() {
     @Test
     fun return_200_after_get_data_by_uuid()
     {
-        var uuid="89213479"
+        var uuid=testDataSource.getFakeUUID()
         whenever(userManagerService.getDataByUseruuid(uuid)).thenReturn(testDataSource.getDevice())
         var resource=target("$baseUrl/$uuid").request().get()
         println("data=:$resource")

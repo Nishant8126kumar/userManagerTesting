@@ -1,21 +1,13 @@
 package services
-
-import com.mongodb.util.JSON
 import com.nhaarman.mockito_kotlin.whenever
 import helper.TestDataSource
 import org.codehaus.jackson.map.ObjectMapper
-import org.glassfish.jersey.server.JSONP
-import org.glassfish.jersey.server.ResourceConfig
-import org.glassfish.jersey.test.JerseyTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import repositories.UserManagerModel
 import repositories.UserManagerRepository
-import resources.UserManagerResource
-import javax.swing.text.Document
-import javax.ws.rs.core.Application
+import validation.Validation
 
 class UserManagerServiceShould
 {
@@ -24,10 +16,11 @@ class UserManagerServiceShould
     private val mapper=Mockito.mock(ObjectMapper::class.java)
     private val userRepository=Mockito.mock(UserManagerRepository::class.java)
     private val testDataSource=TestDataSource()
+    private val validation=Mockito.mock(Validation::class.java)
     @Before
     fun setup()
     {
-        classUnderTest= UserManagerService(userRepository,mapper)
+        classUnderTest= UserManagerService(userRepository,mapper,validation)
     }
 
     @Test
@@ -61,7 +54,7 @@ class UserManagerServiceShould
         whenever(userRepository.creatUser(record)).thenReturn(record)
         var request=classUnderTest.createNewUserManager(record)
 
-        println("data=:$record")
+//        println("data=:$record")
 
         assert(request!=null)
     }
@@ -73,7 +66,7 @@ class UserManagerServiceShould
 
         whenever(userRepository.deleteUseManagerData(record)).thenReturn(testDataSource.getFakeUUID())
         var request=classUnderTest.deleteData(record)
-        println("Data=:"+request)
+        println("Data=:$request")
         assert(request!=null)
     }
 //    @After

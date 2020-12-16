@@ -1,11 +1,8 @@
 package repositories
 
 import com.mongodb.BasicDBObject
-import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase
 import com.mongodb.util.JSON
-import dagger.Module
-import dagger.Provides
 import org.bson.Document
 import org.codehaus.jackson.map.ObjectMapper
 import java.util.*
@@ -30,7 +27,7 @@ class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private 
                 var userManagerModel=mapper.readValue(json,UserManagerModel::class.java)
                 recod.add(userManagerModel)
             } catch (e: Exception) {
-                println("Exception are occured=:"+e)
+                println("Exception are occured=:$e")
 
             }
         }
