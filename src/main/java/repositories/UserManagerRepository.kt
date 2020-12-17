@@ -9,69 +9,72 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
-class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private val mongoDatabase: MongoDatabase,@Named("mapper") private  val mapper: ObjectMapper) {
+class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private val mongoDatabase: MongoDatabase, private val mapper: ObjectMapper) {
 
 
-    fun getAllUserManagerRecord():List<UserManagerModel>
-    {
-        var recod= mutableListOf<UserManagerModel>()
+    fun getAllUserManagerRecord(): List<UserManagerModel> {
+        val record = mutableListOf<UserManagerModel>()
         println("form Repository")
-        var mongoCollection= mongoDatabase.getCollection("userManager")
-        var mongoCursor=mongoCollection.find().iterator()
-        while (mongoCursor.hasNext())
-        {
+        val mongoCollection = mongoDatabase.getCollection("userManager")
+        val mongoCursor = mongoCollection.find().iterator()
+        while (mongoCursor.hasNext()) {
             try {
-                var doc:Document=mongoCursor.next()
+                val doc: Document = mongoCursor.next()
                 doc.remove("_id")
-                var json=JSON.serialize(doc)
-                var userManagerModel=mapper.readValue(json,UserManagerModel::class.java)
-                recod.add(userManagerModel)
+                val json = JSON.serialize(doc)
+                val userManagerModel = mapper.readValue(json, UserManagerModel::class.java)
+                record.add(userManagerModel)
             } catch (e: Exception) {
                 println("Exception are occured=:$e")
-
             }
         }
-        println("data=:$recod")
-        return recod
+        println("data=:$record")
+        return record
     }
 
-    fun getRecordByuuid(uuid:String):List<UserManagerModel>
-    {
-        var recod= mutableListOf<UserManagerModel>()
+    fun getUserRecordByuuid(uuid: String): List<UserManagerModel> {
+        val record = mutableListOf<UserManagerModel>()
         println("form Repository")
-        val mongoCollection= mongoDatabase.getCollection("userManager")
-        val basicDBObject=BasicDBObject()
+        val mongoCollection = mongoDatabase.getCollection("userManager")
+        val basicDBObject = BasicDBObject()
         basicDBObject["uuid"] = uuid
-        var mongoCursor=mongoCollection.find(basicDBObject).iterator()
-        while (mongoCursor.hasNext())
-        {
-            var doc:Document=mongoCursor.next()
+        val mongoCursor = mongoCollection.find(basicDBObject).iterator()
+        while (mongoCursor.hasNext()) {
+            val doc: Document = mongoCursor.next()
             doc.remove("_id")
-            var json=JSON.serialize(doc)
-            var userManagerModel=mapper.readValue(json,UserManagerModel::class.java)
-            recod.add(userManagerModel)
+            val json = JSON.serialize(doc)
+            val userManagerModel = mapper.readValue(json, UserManagerModel::class.java)
+            record.add(userManagerModel)
         }
-        println("data=:$recod")
-        return recod
+        println("data=:$record")
+        return record
     }
 
-    fun creatUser(record: UserManagerModel):UserManagerModel
-    {
+    fun createNewUser(record: UserManagerModel): UserManagerModel {
         try {
-            var doc=Document.parse(record.toString())
+            val doc = Document.parse(record.toString())
             doc["uuid"] = UUID.randomUUID().toString()
-            val mongoCollection=mongoDatabase.getCollection("userManager").insertOne(doc)
-
+            mongoDatabase.getCollection("userManager").insertOne(doc)
             return record
         } catch (e: Exception) {
             throw Exception("MapperException")
 //            println("Exception are occured=:$e")
         }
     }
-    fun deleteUseManagerData(uuid: String):String
-    {
+
+    fun updateUserData(uuid: String, record: UserManagerModel) {
+        println("update data at uuid=:$uuid")
+        println("data=:$record")
+        val basicDBObject = BasicDBObject()
+        basicDBObject["uuid"] = uuid
+        val data = Document.parse(record.toString())
+        val update = Document("\$set", data)
+        mongoDatabase.getCollection("userManager").findOneAndUpdate(basicDBObject, update)
+    }
+
+    fun deleteUserRecordByuuid(uuid: String): String {
         try {
-            val basicDBObject=BasicDBObject()
+            val basicDBObject = BasicDBObject()
             basicDBObject["uuid"] = uuid
             mongoDatabase.getCollection("userManager").deleteOne(basicDBObject)
             return uuid

@@ -9,21 +9,21 @@ import org.mockito.Mockito
 
 class UserManagerRepositoryShould {
 
-    lateinit var userManagerRepository:UserManagerRepository
-    private val mapper=Mockito.mock(ObjectMapper::class.java)
-//    private lateinit var embeddedMongoDb: EmbeddedMongoDb
+    lateinit var userManagerRepository: UserManagerRepository
+    private val mapper = Mockito.mock(ObjectMapper::class.java)
+
+    //    private lateinit var embeddedMongoDb: EmbeddedMongoDb
 //    private lateinit var database: MongoDatabase
-    var mongoDatabase=Mockito.mock(MongoDatabase::class.java)
-    private val testDataSource=TestDataSource()
+    var mongoDatabase = Mockito.mock(MongoDatabase::class.java)
+    private val testDataSource = TestDataSource()
+
     @Before
-    fun setUp()
-    {
-        userManagerRepository=UserManagerRepository(mongoDatabase,mapper)
+    fun setUp() {
+        userManagerRepository = UserManagerRepository(mongoDatabase, mapper)
     }
 
     @Test
-    fun testGetAllUserManagerRecord()
-    {
+    fun testGetAllUserManagerRecord() {
 //        var request=userManagerRepository.getAllUserManagerRecord()
 
 //        assert(request!=null)

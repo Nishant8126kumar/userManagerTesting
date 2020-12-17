@@ -1,19 +1,19 @@
 {
-    "name":"UserManagerModel",
+    "name":"UserSchemaModel",
     "namespace":"repositories",
     "type":"record",
     "fields":
     [
     {
-    "name":"userName",
+    "name":"name",
     "type":"string"
     },
     {
-    "name":"userEmail",
+    "name":"email",
     "type":"string"
     },
     {
-    "name":"userContact",
+    "name":"contact",
     "type":"string"
     },
     {

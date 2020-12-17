@@ -11,8 +11,7 @@ import javax.inject.Named
 class RepositoryModule {
     @Provides
     @Named("managerRepository")
-    fun provideUserManagerRepositoryObj(@Named("mapper") mapper: ObjectMapper,@Named("mongoDatabase") mongoDatabase: MongoDatabase): UserManagerRepository
-    {
-        return UserManagerRepository(mongoDatabase,mapper)
+    fun provideUserManagerRepositoryObj(mapper: ObjectMapper, @Named("mongoDatabase") mongoDatabase: MongoDatabase): UserManagerRepository {
+        return UserManagerRepository(mongoDatabase, mapper)
     }
 }

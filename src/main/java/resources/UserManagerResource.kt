@@ -10,47 +10,48 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("/fretron/user-manager")
-class UserManagerResource @Inject constructor(@Named("userServiceObj") val userManagerService: UserManagerService, @Named("mapper") val objectMapper: ObjectMapper) {
-    //    var mapper=ObjectMa
-    @GET
-    @Produces(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN)
-    fun getAllRecord(): Response {
+class UserManagerResource @Inject constructor(private val userManagerService: UserManagerService,  private  val objectMapper: ObjectMapper) {
 
-        var record = userManagerService.getData()
-        return Response.ok(record.toString()).build()
-
-    }
 
     @GET
     @Path("/{uuid}")
-    @Produces(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN)
-    fun getRecordByUuid(@PathParam("uuid") uuid: String): Response {
-
-        var record = userManagerService.getDataByUseruuid(uuid)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    fun getUserRecordByuuid(@PathParam("uuid") uuid: String): Response {
+        var record = userManagerService.getUserRecordByuuid(uuid)
         return Response.ok(record.toString()).build()
-
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN)
-    fun createNewUserManager(request: String): String {
-        println("create post")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    fun createNewUser(request: String): Response {
         var record = objectMapper.readValue(request, UserManagerModel::class.java)
-        var userData = userManagerService.createNewUserManager(record)
-//        userManagerService
-        return Response.ok(userData).build().toString()
-
+        var userData = userManagerService.createNewUser(record)
+        return Response.ok(userData.toString()).build()
+        return Response.ok(record.toString()).build()
     }
 
     @DELETE
     @Path("/{uuid}")
-    fun deleteRecord(@PathParam("uuid") uuid: String): String {
-        userManagerService.deleteData(uuid)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    fun deleteUserRecordByuuid(@PathParam("uuid") uuid: String): String {
+        userManagerService.deleteUserRecordByuuid(uuid)
         return "Recorded Deleted"
     }
 
     @PUT
-    fun updateRecord() {
+    @Path("/update-userManager/{uuid}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    fun updateUserRecord(@PathParam("uuid") uuid: String, request: String): String {
+//        var record=objectMapper.readValue(request,UserManagerModel::class.java)
+//        userManagerService.updateUserData(uuid,record)
+//        println("update at uuid=:$uuid")
+//        println("data=:"+request)
         println("Its Working")
+        return "done"
+
     }
 }

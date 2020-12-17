@@ -13,17 +13,15 @@ import javax.ws.rs.core.UriBuilder
 class HttpModule {
 
     @Provides
-    fun getResourceConfig(userManagerResource: UserManagerResource):ResourceConfig
-    {
+    fun getResourceConfig(userManagerResource: UserManagerResource): ResourceConfig {
         return ResourceConfig().register(userManagerResource)
 
     }
 
     @Provides
-    fun serverConfig( @Named("host") hostName:String,@Named("port") portNumber:Int,resourceConfig: ResourceConfig):HttpServer
-    {
-        var uri=UriBuilder.fromUri(hostName).port(portNumber).build()
-        return GrizzlyHttpServerFactory.createHttpServer(uri,resourceConfig)
+    fun serverConfig(@Named("host") hostName: String, @Named("port") portNumber: Int, resourceConfig: ResourceConfig): HttpServer {
+        var uri = UriBuilder.fromUri(hostName).port(portNumber).build()
+        return GrizzlyHttpServerFactory.createHttpServer(uri, resourceConfig)
     }
 
 }

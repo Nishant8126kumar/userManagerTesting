@@ -10,10 +10,10 @@ import java.util.*
 class TestDataSource {
 
 
-    var objectMapper=ObjectMapper();
-    fun getDevice():List<UserManagerModel> {
+    var objectMapper = ObjectMapper();
+    fun getDevice(): List<UserManagerModel> {
 
-        var data="{\n" +
+        var data = "{\n" +
                 "  \"userName\": \"Nishant Sharma\",\n" +
                 "  \"userEmail\": \"nk1761698@gmail.com\",\n" +
                 "  \"userContact\": \"8126632693\",\n" +
@@ -22,21 +22,21 @@ class TestDataSource {
                 "  \"landmark\": \"AMU\",\n" +
                 "  \"secondContact\": \"9911617346\"\n" +
                 "}"
-        var list= mutableListOf<UserManagerModel>()
-        var doc=Document()
+        var list = mutableListOf<UserManagerModel>()
+        var doc = Document()
         doc["userName"] = "Nishant"
-        doc["userEmail"]="nkSharma1761698@gmail.com"
-        doc["userContact"]="8126632693"
-        doc["uuid"]=UUID.randomUUID().toString()
+        doc["userEmail"] = "nkSharma1761698@gmail.com"
+        doc["userContact"] = "8126632693"
+        doc["uuid"] = UUID.randomUUID().toString()
 
-        var jsonString= JSON.serialize(doc)
-        var employees=objectMapper.readValue(jsonString,UserManagerModel::class.java)
+        var jsonString = JSON.serialize(doc)
+        var employees = objectMapper.readValue(jsonString, UserManagerModel::class.java)
         list.add(employees)
         return list
     }
-    fun getNewUserRecord():String
-    {
-        var data="{\n" +
+
+    fun getNewUserRecord(): UserManagerModel {
+        var data = "{\n" +
                 "  \"userName\": \"Nishant Sharma\",\n" +
                 "  \"userEmail\": \"nk1761698@gmail.com\",\n" +
                 "  \"userContact\": \"8126632693\",\n" +
@@ -45,10 +45,23 @@ class TestDataSource {
                 "  \"landMark\": \"AMU\",\n" +
                 "  \"secondContact\": \"9911617346\"\n" +
                 "}"
-        return data
+        return objectMapper.readValue(data, UserManagerModel::class.java)
     }
-    fun getFakeUUID():String
-    {
+
+    fun updatePayLoad(): UserManagerModel {
+        var data = "{\n" +
+                "        \"userName\": \"Rohit Palod\",\n" +
+                "        \"userEmail\": \"rohit.palod@fretron.com\",\n" +
+                "        \"userContact\": \"6325639729\",\n" +
+                "        \"uuid\": \"9dca9108-004a-4075-a011-838f7cd99e94\",\n" +
+                "        \"address\": \"Kota\",\n" +
+                "        \"landMark\": null,\n" +
+                "        \"secondContact\": null\n" +
+                "    }"
+        return objectMapper.readValue(data, UserManagerModel::class.java)
+    }
+
+    fun getFakeUUID(): String {
 //        return UUID.randomUUID().toString()
         return "841496e2-36b7-4a7a-9c90-eff88dd2560e"
     }
