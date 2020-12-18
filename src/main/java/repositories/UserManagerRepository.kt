@@ -13,7 +13,7 @@ class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private 
 
 
     fun getUserRecordByuuid(uuid: String): UserManagerModel? {
-        val record = mutableListOf<UserManagerModel>()
+//        val record = mutableListOf<UserManagerModel>()
         println("form Repository")
         val mongoCollection = mongoDatabase.getCollection("userManager")
         val basicDBObject = BasicDBObject()

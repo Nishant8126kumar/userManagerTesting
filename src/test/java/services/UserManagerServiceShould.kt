@@ -3,6 +3,7 @@ package services
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import component.TestComponent
 import helper.TestDataSource
 import org.codehaus.jackson.map.ObjectMapper
 import org.junit.Assert
@@ -10,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import repositories.UserManagerRepository
-import java.util.*
 
 class UserManagerServiceShould {
 
@@ -19,16 +19,18 @@ class UserManagerServiceShould {
     private val userRepository = Mockito.mock(UserManagerRepository::class.java)
     private val testDataSource = TestDataSource()
     lateinit var uuid: String
+    lateinit var testComponent: TestComponent
 
     @Before
     fun setup() {
+//        testComponent=DaggerTestComponent.builder().build()
         classUnderTest = UserManagerService(userRepository, mapper)
     }
     @Test
     fun testCreateNewUser() {
-        var userData = testDataSource.getNewUserRecord()
+        val userData = testDataSource.getNewUserRecord()
         whenever(userRepository.createNewUser(any())).thenReturn(userData)
-        var request = classUnderTest.createNewUser(userData)
+        val request = classUnderTest.createNewUser(userData)
         Assert.assertNotNull(request)
         println("data=:$request")
         uuid=request.getUuid().toString()
@@ -39,25 +41,21 @@ class UserManagerServiceShould {
     @Test
     fun testGetDatabyUUID() {
        testCreateNewUser()
-        whenever(userRepository.getUserRecordByuuid(uuid)).thenReturn(testDataSource.getDevice())
-        var request = classUnderTest.getUserRecordByuuid(uuid)
+        whenever(userRepository.getUserRecordByuuid(any())).thenReturn(testDataSource.getDevice())
+        val request = classUnderTest.getUserRecordByuuid(uuid)
         println("Test get data by uuid=:$request")
         Assert.assertNotNull(request)
         verify(userRepository).getUserRecordByuuid(uuid)
     }
-
-
 
     @Test
     fun testDeleteUserByUUUID() {
         testCreateNewUser()
         println("Record=:$uuid")
         whenever(userRepository.deleteUserRecordByuuid(uuid)).thenReturn(testDataSource.getFakeUUID())
-        var request = classUnderTest.deleteUserRecordByuuid(uuid)
+        val request = classUnderTest.deleteUserRecordByuuid(uuid)
         println("Data=:$request")
         Assert.assertNotNull(request)
         verify(userRepository).deleteUserRecordByuuid(uuid)
     }
-
-
 }

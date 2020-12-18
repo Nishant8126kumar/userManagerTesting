@@ -9,21 +9,37 @@ import javax.inject.Named
 class UserManagerService @Inject constructor(@Named("managerRepository") private val userManagerRepository: UserManagerRepository, private val objectMapper: ObjectMapper) {
 
 
-    fun getUserRecordByuuid(uuid: String):UserManagerModel? {
+    fun getUserRecordByuuid(uuid: String): UserManagerModel? {
+        if (uuid.isEmpty()) {
+            throw Exception("uuid not found")
+        } else {
+            return userManagerRepository.getUserRecordByuuid(uuid)
 
-        return userManagerRepository.getUserRecordByuuid(uuid)
+        }
     }
 
     fun createNewUser(record: UserManagerModel): UserManagerModel {
-        return userManagerRepository.createNewUser(record)
+        if (record.getUserName() == null || record.getUserEmail() == null) {
+            throw Exception("Require field not found")
+        } else {
+            return userManagerRepository.createNewUser(record)
+        }
     }
+
     fun updateUserData(uuid: String, record: UserManagerModel) {
         println("its working update record from service layer")
-        userManagerRepository.updateUserData(uuid, record)
-
+        if (record.getUserName() == null || record.getUserEmail() == null) {
+            throw Exception("Require field not found")
+        } else {
+            userManagerRepository.updateUserData(uuid, record)
+        }
     }
 
-    fun deleteUserRecordByuuid(uuid: String):String {
-        return userManagerRepository.deleteUserRecordByuuid(uuid)
+    fun deleteUserRecordByuuid(uuid: String): String {
+        if (uuid.isEmpty()) {
+            throw Exception("uuid require")
+        } else {
+            return userManagerRepository.deleteUserRecordByuuid(uuid)
+        }
     }
 }
