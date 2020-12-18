@@ -1,8 +1,8 @@
-import component.DaggerTestComponent
-import component.TestComponent
+import component.DaggerUserComponent
+import component.UserComponent
 
 
 fun main() {
-    val testComponent: TestComponent = DaggerTestComponent.builder().build()
-    testComponent.server()
+    val userComponent: UserComponent = DaggerUserComponent.builder().build()
+    userComponent.server()
 }

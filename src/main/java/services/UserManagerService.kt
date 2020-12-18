@@ -8,11 +8,8 @@ import javax.inject.Named
 
 class UserManagerService @Inject constructor(@Named("managerRepository") private val userManagerRepository: UserManagerRepository, private val objectMapper: ObjectMapper) {
 
-    fun getAllUserRecord(): List<UserManagerModel> {
-        return userManagerRepository.getAllUserManagerRecord()
-    }
 
-    fun getUserRecordByuuid(uuid: String): List<UserManagerModel> {
+    fun getUserRecordByuuid(uuid: String):UserManagerModel? {
 
         return userManagerRepository.getUserRecordByuuid(uuid)
     }
@@ -26,7 +23,7 @@ class UserManagerService @Inject constructor(@Named("managerRepository") private
 
     }
 
-    fun deleteUserRecordByuuid(uuid: String) {
-        userManagerRepository.deleteUserRecordByuuid(uuid)
+    fun deleteUserRecordByuuid(uuid: String):String {
+        return userManagerRepository.deleteUserRecordByuuid(uuid)
     }
 }

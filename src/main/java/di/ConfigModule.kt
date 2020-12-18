@@ -8,7 +8,7 @@ import javax.inject.Named
 class ConfigModule {
 
     private val hostName = "http://localhost"
-    private val portNumber = 9085
+    private val portNumber = 9095
 
     @Provides
     @Named("host")

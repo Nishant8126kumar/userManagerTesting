@@ -12,42 +12,21 @@ import javax.inject.Named
 class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private val mongoDatabase: MongoDatabase, private val mapper: ObjectMapper) {
 
 
-    fun getAllUserManagerRecord(): List<UserManagerModel> {
-        val record = mutableListOf<UserManagerModel>()
-        println("form Repository")
-        val mongoCollection = mongoDatabase.getCollection("userManager")
-        val mongoCursor = mongoCollection.find().iterator()
-        while (mongoCursor.hasNext()) {
-            try {
-                val doc: Document = mongoCursor.next()
-                doc.remove("_id")
-                val json = JSON.serialize(doc)
-                val userManagerModel = mapper.readValue(json, UserManagerModel::class.java)
-                record.add(userManagerModel)
-            } catch (e: Exception) {
-                println("Exception are occured=:$e")
-            }
-        }
-        println("data=:$record")
-        return record
-    }
-
-    fun getUserRecordByuuid(uuid: String): List<UserManagerModel> {
+    fun getUserRecordByuuid(uuid: String): UserManagerModel? {
         val record = mutableListOf<UserManagerModel>()
         println("form Repository")
         val mongoCollection = mongoDatabase.getCollection("userManager")
         val basicDBObject = BasicDBObject()
         basicDBObject["uuid"] = uuid
         val mongoCursor = mongoCollection.find(basicDBObject).iterator()
-        while (mongoCursor.hasNext()) {
+        if (mongoCursor.hasNext()) {
             val doc: Document = mongoCursor.next()
             doc.remove("_id")
             val json = JSON.serialize(doc)
             val userManagerModel = mapper.readValue(json, UserManagerModel::class.java)
-            record.add(userManagerModel)
+           return userManagerModel
         }
-        println("data=:$record")
-        return record
+        return null
     }
 
     fun createNewUser(record: UserManagerModel): UserManagerModel {

@@ -6,6 +6,7 @@ import org.glassfish.grizzly.http.server.HttpServer
 
 
 @Component(modules = [ConfigModule::class, HttpModule::class, ServiceModule::class, RepositoryModule::class, MapperProvide::class, DatabaseModule::class])
-interface TestComponent {
+interface UserComponent {
     fun server(): HttpServer
+//    fun userService():UserManagerService
 }
