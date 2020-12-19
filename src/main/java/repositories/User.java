@@ -6,8 +6,8 @@
 package repositories;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
-public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"UserSchemaModel\",\"namespace\":\"repositories\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"contact\",\"type\":\"string\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"address\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"landMark\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"secondContact\",\"type\":[\"null\",\"string\"],\"default\":null}]}");
+public class User extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"User\",\"namespace\":\"repositories\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"contact\",\"type\":\"string\"},{\"name\":\"uuid\",\"type\":\"string\"},{\"name\":\"address\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"landMark\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"secondContact\",\"type\":[\"null\",\"string\"],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.CharSequence name;
   @Deprecated public java.lang.CharSequence email;
@@ -22,12 +22,12 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
    * to their default values from the schema.  If that is desired then
    * one should use <code>newBuilder()</code>. 
    */
-  public UserSchemaModel() {}
+  public User() {}
 
   /**
    * All-args constructor.
    */
-  public UserSchemaModel(java.lang.CharSequence name, java.lang.CharSequence email, java.lang.CharSequence contact, java.lang.CharSequence uuid, java.lang.CharSequence address, java.lang.CharSequence landMark, java.lang.CharSequence secondContact) {
+  public User(java.lang.CharSequence name, java.lang.CharSequence email, java.lang.CharSequence contact, java.lang.CharSequence uuid, java.lang.CharSequence address, java.lang.CharSequence landMark, java.lang.CharSequence secondContact) {
     this.name = name;
     this.email = email;
     this.contact = contact;
@@ -171,26 +171,26 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     this.secondContact = value;
   }
 
-  /** Creates a new UserSchemaModel RecordBuilder */
-  public static repositories.UserSchemaModel.Builder newBuilder() {
-    return new repositories.UserSchemaModel.Builder();
+  /** Creates a new User RecordBuilder */
+  public static repositories.User.Builder newBuilder() {
+    return new repositories.User.Builder();
   }
   
-  /** Creates a new UserSchemaModel RecordBuilder by copying an existing Builder */
-  public static repositories.UserSchemaModel.Builder newBuilder(repositories.UserSchemaModel.Builder other) {
-    return new repositories.UserSchemaModel.Builder(other);
+  /** Creates a new User RecordBuilder by copying an existing Builder */
+  public static repositories.User.Builder newBuilder(repositories.User.Builder other) {
+    return new repositories.User.Builder(other);
   }
   
-  /** Creates a new UserSchemaModel RecordBuilder by copying an existing UserSchemaModel instance */
-  public static repositories.UserSchemaModel.Builder newBuilder(repositories.UserSchemaModel other) {
-    return new repositories.UserSchemaModel.Builder(other);
+  /** Creates a new User RecordBuilder by copying an existing User instance */
+  public static repositories.User.Builder newBuilder(repositories.User other) {
+    return new repositories.User.Builder(other);
   }
   
   /**
-   * RecordBuilder for UserSchemaModel instances.
+   * RecordBuilder for User instances.
    */
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<UserSchemaModel>
-    implements org.apache.avro.data.RecordBuilder<UserSchemaModel> {
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<User>
+    implements org.apache.avro.data.RecordBuilder<User> {
 
     private java.lang.CharSequence name;
     private java.lang.CharSequence email;
@@ -202,11 +202,11 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
 
     /** Creates a new Builder */
     private Builder() {
-      super(repositories.UserSchemaModel.SCHEMA$);
+      super(repositories.User.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(repositories.UserSchemaModel.Builder other) {
+    private Builder(repositories.User.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
@@ -238,9 +238,9 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
       }
     }
     
-    /** Creates a Builder by copying an existing UserSchemaModel instance */
-    private Builder(repositories.UserSchemaModel other) {
-            super(repositories.UserSchemaModel.SCHEMA$);
+    /** Creates a Builder by copying an existing User instance */
+    private Builder(repositories.User other) {
+            super(repositories.User.SCHEMA$);
       if (isValidValue(fields()[0], other.name)) {
         this.name = data().deepCopy(fields()[0].schema(), other.name);
         fieldSetFlags()[0] = true;
@@ -277,7 +277,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'name' field */
-    public repositories.UserSchemaModel.Builder setName(java.lang.CharSequence value) {
+    public repositories.User.Builder setName(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.name = value;
       fieldSetFlags()[0] = true;
@@ -290,7 +290,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'name' field */
-    public repositories.UserSchemaModel.Builder clearName() {
+    public repositories.User.Builder clearName() {
       name = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -302,7 +302,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'email' field */
-    public repositories.UserSchemaModel.Builder setEmail(java.lang.CharSequence value) {
+    public repositories.User.Builder setEmail(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.email = value;
       fieldSetFlags()[1] = true;
@@ -315,7 +315,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'email' field */
-    public repositories.UserSchemaModel.Builder clearEmail() {
+    public repositories.User.Builder clearEmail() {
       email = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -327,7 +327,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'contact' field */
-    public repositories.UserSchemaModel.Builder setContact(java.lang.CharSequence value) {
+    public repositories.User.Builder setContact(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.contact = value;
       fieldSetFlags()[2] = true;
@@ -340,7 +340,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'contact' field */
-    public repositories.UserSchemaModel.Builder clearContact() {
+    public repositories.User.Builder clearContact() {
       contact = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -352,7 +352,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'uuid' field */
-    public repositories.UserSchemaModel.Builder setUuid(java.lang.CharSequence value) {
+    public repositories.User.Builder setUuid(java.lang.CharSequence value) {
       validate(fields()[3], value);
       this.uuid = value;
       fieldSetFlags()[3] = true;
@@ -365,7 +365,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'uuid' field */
-    public repositories.UserSchemaModel.Builder clearUuid() {
+    public repositories.User.Builder clearUuid() {
       uuid = null;
       fieldSetFlags()[3] = false;
       return this;
@@ -377,7 +377,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'address' field */
-    public repositories.UserSchemaModel.Builder setAddress(java.lang.CharSequence value) {
+    public repositories.User.Builder setAddress(java.lang.CharSequence value) {
       validate(fields()[4], value);
       this.address = value;
       fieldSetFlags()[4] = true;
@@ -390,7 +390,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'address' field */
-    public repositories.UserSchemaModel.Builder clearAddress() {
+    public repositories.User.Builder clearAddress() {
       address = null;
       fieldSetFlags()[4] = false;
       return this;
@@ -402,7 +402,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'landMark' field */
-    public repositories.UserSchemaModel.Builder setLandMark(java.lang.CharSequence value) {
+    public repositories.User.Builder setLandMark(java.lang.CharSequence value) {
       validate(fields()[5], value);
       this.landMark = value;
       fieldSetFlags()[5] = true;
@@ -415,7 +415,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'landMark' field */
-    public repositories.UserSchemaModel.Builder clearLandMark() {
+    public repositories.User.Builder clearLandMark() {
       landMark = null;
       fieldSetFlags()[5] = false;
       return this;
@@ -427,7 +427,7 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Sets the value of the 'secondContact' field */
-    public repositories.UserSchemaModel.Builder setSecondContact(java.lang.CharSequence value) {
+    public repositories.User.Builder setSecondContact(java.lang.CharSequence value) {
       validate(fields()[6], value);
       this.secondContact = value;
       fieldSetFlags()[6] = true;
@@ -440,16 +440,16 @@ public class UserSchemaModel extends org.apache.avro.specific.SpecificRecordBase
     }
     
     /** Clears the value of the 'secondContact' field */
-    public repositories.UserSchemaModel.Builder clearSecondContact() {
+    public repositories.User.Builder clearSecondContact() {
       secondContact = null;
       fieldSetFlags()[6] = false;
       return this;
     }
 
     @Override
-    public UserSchemaModel build() {
+    public User build() {
       try {
-        UserSchemaModel record = new UserSchemaModel();
+        User record = new User();
         record.name = fieldSetFlags()[0] ? this.name : (java.lang.CharSequence) defaultValue(fields()[0]);
         record.email = fieldSetFlags()[1] ? this.email : (java.lang.CharSequence) defaultValue(fields()[1]);
         record.contact = fieldSetFlags()[2] ? this.contact : (java.lang.CharSequence) defaultValue(fields()[2]);

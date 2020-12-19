@@ -17,7 +17,7 @@ class DatabaseModule {
 
     @Provides
     @Named("mongoDatabase")
-    fun provideMongoDatabse(@Named("databaseClient") mongoClient: MongoClient): MongoDatabase {
+    fun provideMongoDatabase(@Named("databaseClient") mongoClient: MongoClient): MongoDatabase {
         return mongoClient.getDatabase("EmployeeDetails")
     }
 

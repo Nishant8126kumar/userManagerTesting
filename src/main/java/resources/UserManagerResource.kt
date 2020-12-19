@@ -1,7 +1,7 @@
 package resources
 
 import org.codehaus.jackson.map.ObjectMapper
-import repositories.UserManagerModel
+import repositories.User
 import services.UserManagerService
 import javax.inject.Inject
 import javax.ws.rs.*
@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response
 
 @Path("/fretron/user-manager")
 class UserManagerResource @Inject constructor(private val userManagerService: UserManagerService, private val objectMapper: ObjectMapper) {
+
     @GET
     @Path("/{uuid}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -23,7 +24,7 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun createNewUser(request: String): Response {
-        var record = objectMapper.readValue(request, UserManagerModel::class.java)
+        var record = objectMapper.readValue(request, User::class.java)
         var userData = userManagerService.createNewUser(record)
         println("User data=$userData")
         return Response.ok(record.toString()).build()
@@ -43,9 +44,9 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     fun updateUserRecord(@PathParam("uuid") uuid: String, request: String): String {
-        var record = objectMapper.readValue(request, UserManagerModel::class.java)
-        userManagerService.updateUserData(uuid, record)
-        println("record=:"+record)
-        return "Recorded Updated"
+        var record = objectMapper.readValue(request, User::class.java)
+        var response=userManagerService.updateUserData(uuid, record)
+//        println("record=:"+record)
+        return Response.ok(response).toString()
     }
 }

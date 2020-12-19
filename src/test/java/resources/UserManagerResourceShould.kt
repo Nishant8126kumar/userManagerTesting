@@ -34,9 +34,17 @@ class UserManagerResourceShould: JerseyTest() {
     }
 
     @Test
+    fun testGetUserRecordByuuid()
+    {
+        uuid="d7a972a2-bba8-445b-a58e-65c0ed1b3754"
+        var response=target("$baseUrl/$uuid").request().get()
+        assert(response.status==200)
+    }
+
+    @Test
     fun return_200_after_createNewUserManager() {
-        val data = testDataSource.getNewUserRecord()
-        val response = target("$baseUrl").request().post(Entity.entity(data.toString(), MediaType.APPLICATION_JSON))
+        val user = testDataSource.getNewUserRecord()
+        val response = target("$baseUrl").request().post(Entity.entity(user.toString(), MediaType.APPLICATION_JSON))
         assert(response.status == 200)
         val record = response.readEntity(String::class.java)
         uuid = JSONObject(record).get("uuid").toString()
@@ -48,10 +56,11 @@ class UserManagerResourceShould: JerseyTest() {
     fun return_200_after_update_data_by_uuid() {
 
         return_200_after_createNewUserManager()
-        val updatePayload = testDataSource.updatePayLoad()
-        val responce = target("$baseUrl/update-userManager").path(uuid).request().put(Entity.entity(updatePayload.toString(), MediaType.APPLICATION_JSON))
-        assert(responce.status == 200)
-        val data = responce.readEntity(String::class.java)
+        val user = testDataSource.updatePayLoad()
+        val response = target("$baseUrl/update-userManager").path(uuid).request().put(Entity.entity(user.toString(), MediaType.APPLICATION_JSON))
+        assert(response.status == 200)
+        val data = response.readEntity(String::class.java)
+
     }
 
     @Test
