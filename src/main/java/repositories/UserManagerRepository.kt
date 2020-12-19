@@ -48,20 +48,21 @@ class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private 
             mongoCollection.insertOne(doc)
             return record
         } catch (e: Exception) {
-            throw Exception("MapperException")
+            println("Exception are occured=:$e")
+            throw Exception("${e.message} MapperException")
 //            println("Exception are occured=:$e")
         }
     }
 
     fun updateUserData(uuid: String, record: User):String {
         println("update data on this uuid=:$uuid")
-//        println("data=:$record")
+        println("data=:$record")
         val basicDBObject = BasicDBObject()
         basicDBObject["uuid"] = uuid
         val data = Document.parse(record.toString())
         val update = Document("\$set", data)
         mongoCollection.findOneAndUpdate(basicDBObject, update)
-        return "Record Update Successfully"
+        return "Record Updated Successfully"
 
     }
 
@@ -72,7 +73,7 @@ class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private 
             mongoCollection.deleteOne(basicDBObject)
             return uuid
         } catch (e: Exception) {
-            throw java.lang.Exception("Not Deleted")
+            throw java.lang.Exception("${e.message}Not Deleted")
         }
     }
 }

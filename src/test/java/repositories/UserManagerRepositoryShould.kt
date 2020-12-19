@@ -20,7 +20,7 @@ class UserManagerRepositoryShould {
     lateinit var embeddedMongoDb: EmbeddedMongoDb
     private lateinit var mongoDatabase: MongoDatabase
     private val objectMapper=ObjectMapper()
-    private val uuid="0236274e-d715-44e0-9aa3-8cf45f927afb"
+    private val uuid="07b06f91-284f-42ff-b33b-48c129fc7b3d"
 
 
 
@@ -51,9 +51,11 @@ class UserManagerRepositoryShould {
     fun testCreateNewUser()
     {
         val user=testDataSource.getUser()
-        val userFromDb = classunderTest.createNewUser(user)
+        val userFromDb: User = classunderTest.createNewUser(user)
         println("user From =:$userFromDb")
-        Assert.assertNotNull(userFromDb)
+        Assert.assertNotNull(userFromDb.getName())
+        Assert.assertNotNull(user.getEmail())
+        Assert.assertNotNull(user.getContact())
     }
 
     @Test
@@ -61,8 +63,6 @@ class UserManagerRepositoryShould {
 
         val response=classunderTest.getUserRecordByuuid(uuid)
         println("responce=:$response")
-        Assert.assertNotNull(response)
-
     }
 
     @Test
@@ -79,8 +79,10 @@ class UserManagerRepositoryShould {
     fun testUpdateUserData()
     {
         val user=testDataSource.getUser()
-        val response=classunderTest.updateUserData(uuid,user)
-
+        classunderTest.updateUserData(uuid,user)
+        Assert.assertNotNull(user.getName())
+        Assert.assertNotNull((user.getEmail()))
+        Assert.assertNotNull(user.getContact())
     }
 
 
