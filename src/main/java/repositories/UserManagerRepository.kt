@@ -3,37 +3,31 @@ package repositories
 import com.mongodb.BasicDBObject
 import com.mongodb.client.MongoDatabase
 import com.mongodb.util.JSON
+import exceptions.MongoDbException
 import org.bson.Document
 import org.codehaus.jackson.map.ObjectMapper
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
+import kotlin.jvm.Throws
 
 class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private val mongoDatabase: MongoDatabase, private val mapper: ObjectMapper) {
 
-
-//    init {
-//        val mongoCursor=mongoDatabase.getCollection("userManager").find().iterator()
-//        println("MongoCursor")
-//        while (mongoCursor.hasNext())
-//        {
-//            println("data=:${mongoCursor.next()}")
-//        }
-//    }
+    lateinit var user: User
 
     val mongoCollection=mongoDatabase.getCollection("userManager")
     fun getUserRecordByuuid(uuid: String): User? {
         val basicDBObject = BasicDBObject()
         basicDBObject["uuid"] = uuid
         val mongoCursor = mongoCollection.find(basicDBObject).iterator()
-
         try {
             if (mongoCursor.hasNext()) {
                 println("data")
                 val doc: Document = mongoCursor.next()
                 doc.remove("_id")
                 val json = JSON.serialize(doc)
-                return mapper.readValue(json, User::class.java)
+                user= mapper.readValue(json, User::class.java)
+                return user
             }
         } catch (e: Exception) {
             println("Exception are occured=:$e")
@@ -41,26 +35,22 @@ class UserManagerRepository @Inject constructor(@Named("mongoDatabase") private 
         return null
     }
 
+    @Throws(MongoDbException::class)
     fun createNewUser(record: User): User {
-        try {
-            val doc = Document.parse(record.toString())
-            doc["uuid"] = UUID.randomUUID().toString()
-            mongoCollection.insertOne(doc)
-            return record
-        } catch (e: Exception) {
-            println("Exception are occured=:$e")
-            throw Exception("${e.message} MapperException")
-//            println("Exception are occured=:$e")
-        }
+        val doc = Document.parse(record.toString()) ?: throw Exception("User Record not created successfully")
+         doc["uuid"] = UUID.randomUUID().toString()
+         mongoCollection.insertOne(doc)
+         return record
     }
 
+    @Throws(MongoDbException::class)
     fun updateUserData(uuid: String, record: User):String {
         println("update data on this uuid=:$uuid")
         println("data=:$record")
         val basicDBObject = BasicDBObject()
         basicDBObject["uuid"] = uuid
-        val data = Document.parse(record.toString())
-        val update = Document("\$set", data)
+        val doc = Document.parse(record.toString()) ?: throw MongoDbException("User Record not update successfully")
+        val update = Document("\$set", doc)
         mongoCollection.findOneAndUpdate(basicDBObject, update)
         return "Record Updated Successfully"
 

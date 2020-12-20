@@ -8,8 +8,6 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
 import utils.EmbeddedMongoDb
 import java.util.*
 
@@ -60,9 +58,10 @@ class UserManagerRepositoryShould {
 
     @Test
     fun testGetUserRecordByuuid() {
-
-        val response=classunderTest.getUserRecordByuuid(uuid)
-        println("responce=:$response")
+        val fakeUser=testDataSource.getUser()
+        val userFromDb: User = classunderTest.createNewUser(fakeUser)
+        val user=classunderTest.getUserRecordByuuid(userFromDb.getUuid().toString())
+        println("responce= :$user")
     }
 
     @Test

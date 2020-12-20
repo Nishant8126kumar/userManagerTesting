@@ -16,7 +16,7 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun getUserRecordByuuid(@PathParam("uuid") uuid: String): Response {
-        var record = userManagerService.getUserRecordByuuid(uuid)
+        val record = userManagerService.getUserRecordByuuid(uuid)
         return Response.ok(record.toString()).build()
     }
 
@@ -24,8 +24,8 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun createNewUser(request: String): Response {
-        var record = objectMapper.readValue(request, User::class.java)
-        var userData = userManagerService.createNewUser(record)
+        val record = objectMapper.readValue(request, User::class.java)
+        val userData = userManagerService.createNewUser(record)
         println("User data=$userData")
         return Response.ok(record.toString()).build()
     }
@@ -44,8 +44,8 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     fun updateUserRecord(@PathParam("uuid") uuid: String, request: String): String {
-        var record = objectMapper.readValue(request, User::class.java)
-        var response=userManagerService.updateUserData(uuid, record)
+        val record = objectMapper.readValue(request, User::class.java)
+        val response=userManagerService.updateUserData(uuid, record)
 //        println("record=:"+record)
         return Response.ok(response).toString()
     }
