@@ -26,7 +26,7 @@ class UserManagerResource @Inject constructor(private val userManagerService: Us
     fun createNewUser(request: String): Response {
         val record = objectMapper.readValue(request, User::class.java)
         val userData = userManagerService.createNewUser(record)
-        println("User data=$userData")
+        println("User data=:$userData")
         return Response.ok(record.toString()).build()
     }
 
