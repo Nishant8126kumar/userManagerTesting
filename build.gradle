@@ -39,6 +39,7 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
     // https://mvnrepository.com/artifact/com.nhaarman/mockito-kotlin
     testCompile group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.6.0'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
 
     testCompile group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: '2.19'
 //     testCompile group: 'com.nhaarman', name: 'mockito-kotlin', version: '1.6.0'

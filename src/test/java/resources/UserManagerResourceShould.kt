@@ -46,9 +46,10 @@ class UserManagerResourceShould: JerseyTest() {
         val user = testDataSource.getNewUserRecord()
         val response = target("$baseUrl").request().post(Entity.entity(user.toString(), MediaType.APPLICATION_JSON))
         assert(response.status == 200)
+        println("respo=:$response")
         val record = response.readEntity(String::class.java)
         uuid = JSONObject(record).get("uuid").toString()
-        println("uuid=:" + uuid)
+        println("uuid=:$uuid")
 
     }
 

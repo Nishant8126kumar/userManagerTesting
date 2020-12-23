@@ -57,7 +57,7 @@ class UserManagerServiceShould {
     }
 
     @Test
-    fun TestUpdateUserData()
+    fun testUpdateUserData()
     {
         val user=testDataSource.getUser()
         whenever(userRepository.updateUserData(any(), any())).thenReturn("Record Updated")
